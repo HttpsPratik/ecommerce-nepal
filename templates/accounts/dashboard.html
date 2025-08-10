@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Account Dashboard</h5>
+                </div>
+                <div class="card-body">
+                    <p>This is your account dashboard. Here you can:</p>
+                    <ul>
+                        <li><a href="{% url 'order_list' %}">View your order history</a></li>
+                        <li><a href="{% url 'profile' %}">Manage your profile</a></li>
+                        <li>Track your orders</li>
+                    </ul>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <a href="{% url 'order_list' %}" class="btn btn-primary w-100">
+                                <i class="fas fa-list"></i> My Orders
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{% url 'profile' %}" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-user"></i> My Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

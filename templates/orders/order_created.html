@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white text-center">
+                    <h3><i class="fas fa-check-circle"></i> Order Placed Successfully!</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h4>Thank you for your order!</h4>
+                    <p class="lead">Your order has been confirmed and will be delivered soon.</p>
+                    
+                    <div class="alert alert-info">
+                        <h5>Order Details:</h5>
+                        <p><strong>Order Number:</strong> #{{ order.get_short_order_number }}</p>
+                        <p><strong>Total Amount:</strong> Rs. {{ order.total_amount }}</p>
+                        <p><strong>Payment Method:</strong> Cash on Delivery</p>
+                        <p><strong>Customer:</strong> {{ order.get_full_name }}</p>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <h6><i class="fas fa-truck"></i> What's Next?</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li>✓ We will contact you within 24 hours</li>
+                            <li>✓ Your order will be delivered in 3-5 business days</li>
+                            <li>✓ Pay Rs. {{ order.total_amount }} when delivered</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-shopping-bag"></i> Continue Shopping
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'order_list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-list"></i> View My Orders
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>Select Payment Method</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <h5>Order #{{ order.get_short_order_number }}</h5>
+            <p>Total: <strong>Rs. {{ order.total_amount }}</strong></p>
+            
+            <form method="post" action="{% url 'initiate_payment' order.order_number %}">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card payment-option" onclick="selectPayment('esewa')">
+                            <div class="card-body text-center">
+                                <input type="radio" name="payment_method" value="esewa" id="esewa">
+                                <h6>eSewa</h6>
+                                <p>Pay with eSewa wallet</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card payment-option" onclick="selectPayment('khalti')">
+                            <div class="card-body text-center">
+                                <input type="radio" name="payment_method" value="khalti" id="khalti">
+                                <h6>Khalti</h6>
+                                <p>Pay with Khalti</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card payment-option" onclick="selectPayment('cod')">
+                            <div class="card-body text-center">
+                                <input type="radio" name="payment_method" value="cod" id="cod">
+                                <h6>Cash on Delivery</h6>
+                                <p>Pay when delivered</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="payBtn" disabled>
+                    Proceed to Payment
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function selectPayment(method) {
+    document.getElementById(method).checked = true;
+    document.getElementById('payBtn').disabled = false;
+    
+    // Add visual selection
+    document.querySelectorAll('.payment-option').forEach(card => {
+        card.classList.remove('border-primary');
+    });
+    event.currentTarget.classList.add('border-primary');
+}
+</script>
+{% endblock %}

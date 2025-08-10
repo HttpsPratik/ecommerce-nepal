@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>Cart Debug Information</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Session Data:</h4>
+            <pre>{{ session_data }}</pre>
+            
+            <h4>Cart Object:</h4>
+            <p>Cart length: {{ cart|length }}</p>
+            <pre>{{ cart.cart }}</pre>
+        </div>
+        
+        <div class="col-md-6">
+            <h4>Cart Items:</h4>
+            {% if cart_items %}
+                <ul>
+                {% for item in cart_items %}
+                    <li>{{ item.product.name }} - Qty: {{ item.quantity }} - Price: Rs. {{ item.price }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No cart items found</p>
+            {% endif %}
+            
+            <h4>Test Actions:</h4>
+            <a href="?add_test=1" class="btn btn-primary">Add Test Product</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
